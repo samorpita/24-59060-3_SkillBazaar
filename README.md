@@ -10,8 +10,8 @@
 |------|----|--------------|
 | Samorpita Paul | 24-59060-3 | 28% — Database schema design, DatabaseConnection class, User/Student/Instructor/SuperAdmin classes (inheritance), Login & Sign Up forms |
 | Sadia Islam Shorna | 23-51988-2 | 24% — Super Admin module |
-| Redwan Ahmed Chowdhury | 24-56819-1 | 24% — Instructor module (Dashboard, Course CRUD, Seat Availability, Earnings), SQL queries |
-| Saurav Avik Biswas | 25-60982-1 | 24% — Customer module, report compilation |
+| Redwan Ahmed Chowdhury | 24-56819-1 | 24% —Customer module, report compilation |
+| Saurav Avik Biswas | 25-60982-1 | 24% —Instructor module (Dashboard, Course CRUD, Seat Availability, Earnings), SQL queries |
 
 ## Table of Contents
 1. [Case Study](#1-case-study)
