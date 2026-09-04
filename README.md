@@ -137,6 +137,12 @@ Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=SkillBazaar;Integrated Securi
 If the computer uses SQL Server Express instead, change only this connection
 string to the instance displayed in SSMS.
 
+## Project Screenshots: 
+1. ![Alt Text](docs/screenshots/image.png)
+2. ![Alt Text](docs/screenshots/image2.png)
+3. ![Alt Text](docs/screenshots/image3.png)
+4. ![Alt Text](docs/screenshots/image4.png)
+
 ## Submission information
 
 Course: CSC 2210 Object Oriented Programming 2  
