@@ -14,6 +14,8 @@ namespace SkillBazaar.Forms
         public LoginForm()
         {
             InitializeComponent();
+            AcceptButton = btnLogin;
+            BackColor = Ui.Page;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -51,14 +53,14 @@ namespace SkillBazaar.Forms
                 DataRow row = result.Rows[0];
                 string status = row["Status"].ToString();
 
-                if (status == "Pending")
+                if (string.Equals(status, "Pending", StringComparison.OrdinalIgnoreCase))
                 {
                     MessageBox.Show("Your account is still awaiting Super Admin approval.",
                         "Account Pending", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
-                if (status == "Suspended")
+                if (string.Equals(status, "Suspended", StringComparison.OrdinalIgnoreCase))
                 {
                     MessageBox.Show("Your account has been suspended. Contact support.",
                         "Account Suspended", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -112,30 +114,32 @@ namespace SkillBazaar.Forms
             switch (user.GetDashboardFormName())
             {
                 case "SuperAdminDashboardForm":
-                    // new SuperAdminDashboardForm((SuperAdmin)user).Show();
-                    MessageBox.Show("Welcome Super Admin: " + user.FullName);
+                    OpenOwnedDashboard(new SuperAdminDashboardForm((SuperAdmin)user));
                     break;
 
                 case "InstructorDashboardForm":
-                    // new InstructorDashboardForm((Instructor)user).Show();
-                    MessageBox.Show("Welcome Instructor: " + user.FullName);
+                    OpenOwnedDashboard(new InstructorDashboardForm((Instructor)user));
                     break;
 
                 case "CourseCatalogForm":
                 default:
-                    // new CourseCatalogForm((Student)user).Show();
-                    MessageBox.Show("Welcome Student: " + user.FullName);
+                    OpenOwnedDashboard(new CustomerDashboardForm((Student)user));
                     break;
             }
+        }
+
+        private void OpenOwnedDashboard(Form dashboard)
+        {
+            dashboard.FormClosed += (s, e) => this.Show();
+            dashboard.Show();
         }
 
         private void lnkSignUp_LinkClicked(
             object sender,
             LinkLabelLinkClickedEventArgs e)
         {
-            SignUpForm signUpForm = new SignUpForm();
-            signUpForm.Show();
-            this.Hide();
+            using (SignUpForm signUpForm = new SignUpForm())
+                signUpForm.ShowDialog(this);
         }
 
         // SHA-256 hashing, same approach used in Lab 1.

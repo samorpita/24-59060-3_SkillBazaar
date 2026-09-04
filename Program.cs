@@ -1,18 +1,32 @@
-﻿// Program.cs
 using System;
 using System.Windows.Forms;
 using SkillBazaar.Forms;
+using SkillBazaar.Database;
 
 namespace SkillBazaar
 {
-    static class Program
+    /// <summary>SkillBazaar application entry point and first run database setup.</summary>
+    internal static class Program
     {
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmInstructorDashboard());
+            try
+            {
+                DatabaseInitializer.EnsureCreated();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "SkillBazaar could not prepare its LocalDB database automatically.\n\n" +
+                    "Make sure the Visual Studio .NET desktop development workload and SQL Server Express LocalDB are installed. " +
+                    "You can also execute Database\\schema_sqlserver.sql manually in SSMS.\n\nDetails: " + ex.Message,
+                    "Database Setup Required", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            Application.Run(new LoginForm());
         }
     }
 }

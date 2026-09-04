@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("24-59060-3_SkillBazaar")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Three role online course and tuition marketplace")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("HP")]
+[assembly: AssemblyCompany("SkillBazaar Team")]
 [assembly: AssemblyProduct("24-59060-3_SkillBazaar")]
-[assembly: AssemblyCopyright("Copyright © HP 2026")]
+[assembly: AssemblyCopyright("Copyright © SkillBazaar Team 2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -10,7 +10,7 @@ for CSC 2210 Individual Submission purposes.
 
 ### Database
 - `Database/DatabaseConnection.cs` — central ADO.NET connection class (SQL Server). Every form in the app uses this instead of creating its own connection, so all database access is consistent and centralized.
-- `database/schema.sql` — full database script: 8 tables, sample data (minimum 3 rows per table), and all feature queries.
+- `Database/schema_sqlserver.sql` — full database script with the normalized tables, constraints, sample data, and first run seed records.
 
 ### Models (OOP core)
 - `Models/User.cs` — abstract base class holding shared properties (UserId, FullName, Email, UserType, Status) and the abstract method `GetDashboardFormName()`.
@@ -18,7 +18,7 @@ for CSC 2210 Individual Submission purposes.
 
 ### Forms
 - `Forms/LoginForm.cs` + `.Designer.cs` — validates credentials against the `Users` table (SHA-256 hashed passwords), checks account `Status` (Pending/Approved/Suspended), and routes to the correct dashboard based on `UserType`.
-- `Forms/SignUpForm.cs` + `.Designer.cs` — registers new Students (auto-approved) or Instructors (Pending until Super Admin approval), including creating the linked `Institutes` row for new instructors.
+- `Forms/SignUpForm.cs` — registers new Students (auto-approved) or Instructors (Pending until Super Admin approval), including creating the linked `Institutes` row for new instructors.
 
 ## OOP Concepts Used
 
@@ -54,11 +54,11 @@ private void OpenDashboard(User user)
             new SuperAdminDashboardForm((SuperAdmin)user).Show();
             break;
         case "InstructorDashboardForm":
-            new InstructorDashboard((Instructor)user).Show();
+            new InstructorDashboardForm((Instructor)user).Show();
             break;
         case "CourseCatalogForm":
         default:
-            new CourseCatalogForm((Student)user).Show();
+            new CustomerDashboardForm((Student)user).Show();
             break;
     }
 }
@@ -69,9 +69,8 @@ This is the factory method in `LoginForm.cs` that turns a database row into the 
 to decide which screen to open — `LoginForm` never needs to know the exact subclass, only that
 it's some kind of `User`. This keeps the login flow open to extension (adding a 4th role later
 would mean adding one more subclass and one more `case`, not rewriting the login logic). This
-class is also the integration point that connects my module to every other group member's
-dashboard forms — once they finished their own dashboard forms, I only needed to uncomment
-one line per role here to wire everything together.
+class is also the integration point that connects the shared authentication module to each
+role dashboard.
 
 ## SQL I Wrote
 
@@ -105,4 +104,3 @@ VALUES (@ownerId, @instituteName, @category, 'Pending');
 
 ## My Contribution Percentage: 28%
 (Group agreement: Yes)
-

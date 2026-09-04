@@ -1,0 +1,24 @@
+SKILLBAZAAR - FIRST RUN
+=======================
+
+1. Open 24-59060-3_SkillBazaar.sln in Visual Studio 2022.
+2. If Visual Studio asks for a workload, install ".NET desktop development".
+3. Build > Rebuild Solution.
+4. Press F5.
+
+The application automatically creates and seeds the SkillBazaar database on
+the (LocalDB)\MSSQLLocalDB instance during first run.
+
+If automatic database setup fails:
+1. Open SSMS.
+2. Connect to: (LocalDB)\MSSQLLocalDB
+3. Open Database\schema_sqlserver.sql.
+4. Execute the full script, then run the application again.
+
+TEST ACCOUNTS
+Super Admin: owner@skillbazaar.com / admin123
+Instructor: rafiq@codersbd.com / teacher123
+Customer: samorpita@student.com / student123
+
+The pending instructor demo account is nusrat@examprep.com / teacher123.
+Approve it from the Super Admin account before attempting to log in.

@@ -1,11 +1,6 @@
-using SkillBazaar.SuperAdminModule.Forms;
-
-namespace SkillBazaar.SuperAdminModule.Models
+namespace SkillBazaar.Models
 {
-    /// <summary>
-    /// SuperAdmin role. OpenDashboard() is what the shared Login form should
-    /// call after authenticating a user whose UserType = 'SuperAdmin'.
-    /// </summary>
+    /// <summary>Platform owner role.</summary>
     public class SuperAdmin : User
     {
         public SuperAdmin(int userId, string fullName, string email, string status)
@@ -13,10 +8,9 @@ namespace SkillBazaar.SuperAdminModule.Models
         {
         }
 
-        public override void OpenDashboard()
+        public override string GetDashboardFormName()
         {
-            SuperAdminDashboardForm dashboard = new SuperAdminDashboardForm();
-            dashboard.Show();
+            return "SuperAdminDashboardForm";
         }
     }
 }

@@ -1,153 +1,147 @@
-# SkillBazaar — Online Course / Tuition Marketplace
-> A three-tier C# WinForms marketplace connecting independent instructors and coaching centers with students, with automatic commission-based revenue sharing.
+# SkillBazaar - Online Course and Tuition Marketplace
 
-**Course:** CSC 2210 — Object Oriented Programming 2
-**Semester:** Summer 2025–2026 · **Section:** D · **Group:** 08
-**Supervised by:** Dr. Md. Iftekharul Mobin
+SkillBazaar is a complete three role C# WinForms marketplace for independent
+instructors, coaching centers, and students. It uses SQL Server LocalDB through
+ADO.NET and targets .NET Framework 4.7.2.
 
-## Team Members
-| Name | ID | Contribution |
-|------|----|--------------|
-| Samorpita Paul | 24-59060-3 | 28% — Database schema design, DatabaseConnection class, User/Student/Instructor/SuperAdmin classes (inheritance), Login & Sign Up forms |
-| Sadia Islam Shorna | 23-51988-2 | 24% — Super Admin module |
-| Redwan Ahmed Chowdhury | 24-56819-1 | 24% —Customer module, report compilation |
-| Saurav Avik Biswas | 25-60982-1 | 24% —Instructor module (Dashboard, Course CRUD, Seat Availability, Earnings), SQL queries |
+## Quick start
 
-## Table of Contents
-1. [Case Study](#1-case-study)
-2. [Functional Requirements](#2-functional-requirements)
-3. [User Stories](#3-user-stories)
-4. [Project Structure](#4-project-structure)
-5. [Database Design](#5-database-design)
-6. [OOP Design](#6-oop-design)
-7. [How to Run](#7-how-to-run)
-8. [Test Credentials](#8-test-credentials)
-9. [Screens Implemented](#9-screens-implemented)
-10. [Report](#10-report)
+1. Open `24-59060-3_SkillBazaar.sln` in Visual Studio 2022.
+2. Install the **.NET desktop development** workload if Visual Studio requests it.
+3. Select **Build > Rebuild Solution**.
+4. Press **F5**.
 
-## 1. Case Study
+On first run, the application automatically creates the `SkillBazaar` database,
+all required tables, constraints, sample data, offers, orders, and reviews on
+`(LocalDB)\MSSQLLocalDB`.
 
-Bangladesh has seen rapid growth in demand for supplementary education — university students preparing for admission tests, professionals learning new technical skills, and school students seeking subject tutoring. Currently, independent instructors and small coaching centers rely on scattered channels — Facebook pages, WhatsApp groups, or word-of-mouth — to sell their courses, with no central platform to manage payments, track enrollment, or build credibility through reviews.
+If automatic setup is unavailable, connect SSMS to
+`(LocalDB)\MSSQLLocalDB` and execute `Database/schema_sqlserver.sql` once.
 
-SkillBazaar is a three-tier online marketplace that solves this by connecting independent instructors and coaching centers with students, while the platform owner (Super Admin) earns a commission on every transaction. It follows a "one platform, many sellers" model similar to Daraz or Foodpanda, but applied to online education.
+## Test credentials
 
-Instructors register on the platform and submit their institute details for approval by the Super Admin — a required step so the platform maintains quality and prevents scam listings. Once approved, an instructor can list unlimited courses, setting the price, category, available seats, and whether the course is a one-time purchase or a recurring subscription. Students browse the catalog, filter by category or price, add courses to a cart, and check out using mobile financial services (bKash/Nagad) or card payment. On every successful payment, the system automatically splits the amount — a fixed 20% commission is credited to the platform's revenue, and the remaining 80% is added to the instructor's pending balance. Instructors can request a payout of their accumulated balance at any time, which the Super Admin reviews and approves.
+| Role | Email | Password | Status |
+|---|---|---|---|
+| Super Admin | owner@skillbazaar.com | admin123 | Approved |
+| Instructor | rafiq@codersbd.com | teacher123 | Approved |
+| Customer | samorpita@student.com | student123 | Approved |
+| Instructor approval demo | nusrat@examprep.com | teacher123 | Pending |
 
-## 2. Functional Requirements
+## Implemented modules
 
-### 2.1 Super Admin
-- Log in through a dedicated portal.
-- View all pending instructor registrations and approve or reject them.
-- Suspend or reactivate any instructor account.
-- View/delete any course that violates platform policy.
-- View platform-wide reports: total revenue, best-selling courses, top-earning instructors.
-- View and approve/reject instructor payout requests.
-- View courses/instructors with an average rating below a threshold.
+### Super Admin
 
-### 2.2 Admin (Instructor / Course Provider)
-- Register and submit institute details for approval.
-- Log in only after Super Admin approval.
-- Create, edit, and delete own courses.
-- Set course price, seat count, category, and pricing type (one-time/subscription).
-- View current earnings balance (after 20% platform commission).
-- View seat availability with low-seat alerts.
+- Secure login and role based routing
+- Platform revenue, instructor, customer, and approval statistics
+- Approve or reject pending instructor registrations
+- Search, approve, suspend, and reactivate instructor accounts
+- View, hide, restore, or delete marketplace courses
+- Instructor sales, platform commission, best selling course reports
+- Low rated course monitoring
+- Approve or reject instructor payout requests with balance validation
 
-### 2.3 Customer (Student)
-- Register and log in.
-- Browse/search/filter courses by category, price range, and rating.
-- Add a course to cart, check out, and pay (simulated).
-- View enrolled/purchased courses ("My Learning").
-- Leave a rating and review for a course enrolled in.
+### Instructor
 
-## 3. User Stories
+- Registration with institute name, category, address, and contact details
+- Login only after Super Admin approval
+- Course create, read, update, and delete operations
+- One time and subscription pricing with duration validation
+- Course visibility, seat count, and low seat threshold management
+- Active discount offer creation and removal
+- Enrollment and student contact list
+- Ratings and reviews for owned courses
+- Gross sales, 80 percent net earnings, and payout history
+- Payout requests limited to the real available balance
+- Institute profile updates
 
-- As a Super Admin, I want to review pending instructor applications so that only legitimate instructors can sell courses.
-- As a Super Admin, I want to see total platform revenue so that I can track business performance.
-- As an Instructor, I want to create a new course listing so that students can find and buy it.
-- As an Instructor, I want to see how many seats are left so that I don't oversell a course.
-- As an Instructor, I want to view my earnings balance so that I know how much I can withdraw.
-- As a Student, I want to filter courses by price so that I can find one within my budget.
-- As a Student, I want to pay with bKash so that I can complete my purchase easily.
-- As a Student, I want to leave a review after finishing a course so that I can help other students decide.
+### Customer
 
-## 4. Project Structure
+- Registration, login, and profile update
+- Course search by title or institute
+- Filters for category, price range, and minimum rating
+- Course details, current offers, seat count, and all reviews
+- Add to cart, change quantity, and remove items
+- Automatic active offer calculation in the cart and at checkout
+- Transactional bKash, Nagad, Card, or Cash checkout simulation
+- Invoice confirmation and payment reference storage
+- Duplicate enrollment and overselling protection
+- My Learning purchase history
+- Create or update a review only after purchasing a course
 
-```
-24-59060-3_SkillBazaar/
-├── Database/
-│   └── DatabaseConnection.cs      Reusable SQL Server connection class (ADO.NET)
-├── Models/
-│   ├── User.cs                    Abstract base class
-│   ├── Student.cs                 Subclass — Customer role
-│   ├── Instructor.cs              Subclass — Admin role
-│   └── SuperAdmin.cs              Subclass — SuperAdmin role
-├── Forms/
-│   ├── LoginForm.cs / .Designer.cs
-│   └── SignUpForm.cs / .Designer.cs
-├── docs/
-│   ├── Project_Report.pdf
-│   ├── diagrams/
-│   └── screenshots/
-├── database/
-│   └── schema.sql                 Full SQL Server database script
-├── Program.cs                     Application entry point
-├── App.config                     Connection string configuration
-└── 24-59060-3_SkillBazaar.csproj
-```
+## Database
 
-## 5. Database Design
+The database is normalized around these tables:
 
-**Engine:** Microsoft SQL Server (LocalDB via SSMS)
-**Tables (8):** Users, Institutes, Courses, Cart, Orders, OrderItems, Reviews, Offers
+- `Users`
+- `Institutes`
+- `Courses`
+- `Cart`
+- `Orders`
+- `OrderItems`
+- `Reviews`
+- `Offers`
+- `PayoutRequests`
 
-`OrderItems` is a junction table resolving the many-to-many relationship between `Orders` and `Courses`. Schema is normalized to 3NF — see [`database/schema.sql`](database/schema.sql) for full `CREATE TABLE` statements, sample data, and feature queries (filtering, cart, checkout, JOIN/GROUP BY/HAVING earnings and rating reports).
+`OrderItems` resolves the many to many relationship between orders and courses.
+The checkout operation uses a serializable SQL transaction so order creation,
+discount capture, seat reduction, and cart clearing either all succeed or all
+roll back. All user supplied values are sent through SQL parameters.
 
-Example JOIN + GROUP BY query (Instructor earnings, splitting the 80/20 commission):
-```sql
-SELECT i.InstituteName AS Instructor,
-       SUM(oi.Subtotal) * 0.80 AS NetEarnings,
-       SUM(oi.Subtotal) * 0.20 AS PlatformCommission
-FROM OrderItems oi
-JOIN Courses c ON oi.CourseId = c.CourseId
-JOIN Institutes i ON c.InstituteId = i.InstituteId
-GROUP BY i.InstituteName;
-```
+## OOP implementation
 
-## 6. OOP Design
+- **Abstraction:** `User` is an abstract base class.
+- **Inheritance:** `Student`, `Instructor`, and `SuperAdmin` inherit from `User`.
+- **Polymorphism:** each subclass overrides `GetDashboardFormName()` for role routing.
+- **Encapsulation:** connection and query execution are centralized in
+  `DatabaseConnection`; automatic first run setup is handled by
+  `DatabaseInitializer`.
 
-- **Abstraction:** `User` is an abstract base class — it can never be instantiated directly.
-- **Inheritance:** `Student`, `Instructor`, `SuperAdmin` all inherit from `User`.
-- **Polymorphism:** each subclass overrides `GetDashboardFormName()`, so `LoginForm` can call the same method on any `User` object and get role-appropriate routing without an if/else chain on user type.
-- **Encapsulation:** database access is centralized in `DatabaseConnection`, so no form talks to SQL Server directly — everything goes through parameterized queries in one place.
+## Project structure
 
-## 7. How to Run
-
-1. Install SQL Server / SSMS (or use LocalDB, which ships with Visual Studio).
-2. Open `database/schema.sql` in SSMS and execute it — creates the `SkillBazaar` database, 8 tables, and sample data.
-3. Open `24-59060-3_SkillBazaar.slnx` in Visual Studio 2022.
-4. Open `App.config` and confirm the `SkillBazaarDB` connection string points to your SQL Server instance (default: `(localdb)\MSSQLLocalDB`).
-5. Build (Ctrl+Shift+B) and Run (F5). The app starts on `LoginForm`.
-
-## 8. Test Credentials
-
-| Role | Email | Password |
-|---|---|---|
-| Student | samorpita@student.com | (create via Sign Up) |
-| Instructor | (create via Sign Up, then approve manually in SSMS — see below) |
-
-To approve a newly-registered Instructor account for testing:
-```sql
-UPDATE Users SET Status = 'Approved' WHERE Email = 'the-email-you-used';
-UPDATE Institutes SET Status = 'Approved' WHERE OwnerId = (SELECT UserId FROM Users WHERE Email = 'the-email-you-used');
+```text
+24-59060-3_SkillBazaar.sln
+24-59060-3_SkillBazaar.csproj
+App.config
+Program.cs
+Database/
+  DatabaseConnection.cs
+  DatabaseInitializer.cs
+  schema_sqlserver.sql
+Models/
+  User.cs
+  Student.cs
+  Instructor.cs
+  SuperAdmin.cs
+Forms/
+  Ui.cs
+  LoginForm.cs
+  LoginForm.Designer.cs
+  SignUpForm.cs
+  SuperAdminDashboardForm.cs
+  InstructorDashboardForm.cs
+  CustomerDashboardForm.cs
+  CourseDetailsForm.cs
+  CheckoutForm.cs
+docs/
+  Project_Report.pdf
 ```
 
-## 9. Screens Implemented
+## Connection configuration
 
-- Login / Sign Up (role selection: Student or Instructor)
+The default connection in `App.config` is:
 
-Dashboard forms for each role (Super Admin, Instructor, Customer) are being built by
-other group members — see [Work Distribution](#team-members).
+```text
+Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=SkillBazaar;Integrated Security=True;Connect Timeout=30
+```
 
-## 10. Report
+If the computer uses SQL Server Express instead, change only this connection
+string to the instance displayed in SSMS.
 
-Full project report (case study, requirements, diagrams, SQL, UI mockups): [`docs/Project_Report.pdf`](docs/Project_Report.pdf)
+## Submission information
+
+Course: CSC 2210 Object Oriented Programming 2  
+Semester: Summer 2025 to 2026  
+Section: D  
+Group: 08
+
+The original project report is included under `docs/Project_Report.pdf`.
