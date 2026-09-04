@@ -1,23 +1,24 @@
-using System;
-
-namespace SkillBazaar.Models
+namespace SkillBazaar.SuperAdminModule.Models
 {
-    // Base class for every account type in the system.
-    // Student, Instructor, and SuperAdmin all inherit from this.
-    public abstract class User
+    /// <summary>
+    /// Placeholder base class for the three account roles, matching the Users
+    /// table (UserId, FullName, Email, UserType, Status). This mirrors what
+    /// Samorpita's Core/Shared "User base class + role routing logic" is meant
+    /// to provide — kept minimal here so SuperAdmin.cs has something to inherit
+    /// from while this module lives on its own branch. Replace with the team's
+    /// real User.cs on merge.
+    /// </summary>
+    public class User
     {
         public int UserId { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
-        public string Phone { get; set; }
-        public string Address { get; set; }
-        public string UserType { get; set; }   // "SuperAdmin" / "Admin" / "Customer"
-        public string Status { get; set; }     // "Pending" / "Approved" / "Suspended"
+        public string UserType { get; set; }
+        public string Status { get; set; }
 
-        protected User() { }
+        public User() { }
 
-        protected User(int userId, string fullName, string email, string userType, string status)
+        public User(int userId, string fullName, string email, string userType, string status)
         {
             UserId = userId;
             FullName = fullName;
@@ -26,8 +27,14 @@ namespace SkillBazaar.Models
             Status = status;
         }
 
-        // Every subclass must say which dashboard form to open after login.
-        // This is the polymorphism hook: each role overrides this differently.
-        public abstract string GetDashboardFormName();
+        /// <summary>
+        /// Overridden per role so Login can call user.OpenDashboard() and land
+        /// on the correct screen without an if/else on UserType (polymorphism,
+        /// per Chapter 8 of the report).
+        /// </summary>
+        public virtual void OpenDashboard()
+        {
+            System.Windows.Forms.MessageBox.Show("No dashboard defined for this role yet.");
+        }
     }
 }
