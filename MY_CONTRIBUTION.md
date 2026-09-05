@@ -106,3 +106,31 @@ VALUES (@ownerId, @instituteName, @category, 'Pending');
 ## My Contribution Percentage: 28%
 (Group agreement: Yes)
 
+
+
+## My Contribution — Sadia Islam Shorna (Super Admin Module)
+
+I designed and implemented the entire frontend and database layer for the Super Admin Module, using C# WinForms (.NET Framework 4.7.2).
+
+### What I built
+- **Super Admin Dashboard** — the main system overview screen (Screen 6.3)
+- **Manage Instructors** — screen to approve/suspend instructors (Screen 6.4)
+- **Sales & Commission Report** — sales and commission reporting screen (Screen 6.5)
+- **Payout Approval** — a new screen with no existing mockup in the original report; I designed and built it from scratch based on the FR6 requirement
+- **Shared UI base (`SuperAdminFormBase.cs`)** — a reusable base class providing the common sidebar and top bar across all screens
+- **Database schema (SQL Server)** — converted the original MySQL schema to SQL Server (`AUTO_INCREMENT` → `IDENTITY(1,1)`, `ENUM` → `VARCHAR` + `CHECK`, `CURRENT_TIMESTAMP` → `GETDATE()`), along with sample data that matches the report's numbers exactly (৳96,400 revenue, 18 instructors, etc.)
+- Added a new **`PayoutRequests` table**, which didn't exist in the original schema
+
+### Technical decisions
+- Built the whole module on .NET Framework 4.7.2 (classic WinForms) for easy merging with the rest of the team's codebase
+- Deliberately used plain C# 7.3 syntax so it compiles on everyone's Visual Studio without version mismatches
+- `DatabaseConnection.cs` and `Models/User.cs` are stubs I created just so my branch compiles standalone; these will be replaced with Samorpita's real versions at merge time
+- Wrote roughly 1,400 lines of code total across the 4 screens and the database schema
+
+### How to test it
+The module runs standalone — import the SQL Server schema, open `SuperAdminModule.sln`, and browse from the Dashboard through every screen, with no NuGet dependencies required.
+
+## My Contribution Percentage: 26%
+(Group agreement: Yes)
+
+
