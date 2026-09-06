@@ -1,18 +1,15 @@
-﻿// Program.cs
-using System;
-using System.Windows.Forms;
-using SkillBazaar.Forms;
-
-namespace SkillBazaar
+namespace CourseCatalogform
 {
-    static class Program
+    internal static class Program
     {
+        
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmInstructorDashboard());
+            
+            https://aka.ms/applicationconfiguration.
+            ApplicationConfiguration.Initialize();
+            Application.Run(new Form4());
         }
     }
 }
